@@ -1,6 +1,7 @@
 using Certes;
 using FluffySpoon.AspNet.LetsEncrypt;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -132,7 +133,7 @@ namespace TerritoryTools.Web.MainSite
                 ContentTypeProvider = provider
             });
 
-           ////// UpdateDatabase(app);
+            UpdateDatabase(app);
 
             // New with .NET Core 3.1
             app.UseRouting();
@@ -151,6 +152,11 @@ namespace TerritoryTools.Web.MainSite
                 //////    name: "areas",
                 //////    pattern: "{area:exists}/{controller=ShortUrls}/{action=Index}");
                 endpoints.MapRazorPages();
+            });
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
             //app.UseMvc(routes =>
