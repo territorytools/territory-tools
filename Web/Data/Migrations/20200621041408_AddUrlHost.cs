@@ -41,8 +41,8 @@ namespace TerritoryTools.Web.Data.Migrations
                 column: "HostId");
 
             migrationBuilder.Sql(
-                $"INSERT INTO ShortUrlHosts (Name, AllowNewUrls, Created) " +
-                $"VALUES ('localhost', 1, '{DateTime.Now}')");
+                $"INSERT INTO ShortUrlHosts (Id, Name, AllowNewUrls, Created) " +
+                $"VALUES (0, 'localhost', 1, '{DateTime.Now}')");
 
             migrationBuilder.Sql(
                 $"UPDATE ShortUrls SET HostId = (SELECT MAX(Id) FROM ShortUrlHosts)");
