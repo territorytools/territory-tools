@@ -143,6 +143,10 @@ services:
       - AuthMessageSender:AuthEmailTo
       - AuthMessageSender:PurchaseManager
       - AuthMessageSender:BuyerEmail
+      - VIRTUAL_HOST=territorytools.org
+      #- VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=territorytools.org
+      - LETSENCRYPT_EMAIL=marcdurham@gmail.com
   tt-web-test:
     container_name: tt-web-test
     restart: unless-stopped
@@ -153,8 +157,6 @@ services:
       - "${DataVolume}:/data"
     networks:
       - main  
-    ports:
-      - "6000:6000"
     depends_on:
       - db
     environment:
@@ -194,6 +196,10 @@ services:
       - AuthMessageSender:AuthEmailFromEmailAddress=$AuthMessageSender_AuthEmailFromEmailAddress
       - AuthMessageSender:AuthEmailFromName=$AuthMessageSender_AuthEmailFromName
       - AuthMessageSender:AuthEmailTo=$AuthMessageSender_AuthEmailTo
+      - VIRTUAL_HOST=test.territorytools.org
+      #- VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=test.territorytools.org
+      - LETSENCRYPT_EMAIL=marcdurham@gmail.com
   db:
     container_name: tt-db
     image: "microsoft/mssql-server-linux"
@@ -206,8 +212,6 @@ services:
       - SA_PASSWORD=$SA_PASSWORD
     networks:
       - main
-    ports:
-      - "1433:1433"
   tt-url:
     container_name: tt-url
     restart: unless-stopped

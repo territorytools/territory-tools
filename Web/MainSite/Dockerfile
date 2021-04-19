@@ -23,5 +23,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+EXPOSE 80
+
 ENTRYPOINT ["dotnet", "TerritoryTools.Web.MainSite.dll"]
 
